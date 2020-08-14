@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ntv_mock/pages/live_tv_page.dart';
-import 'package:ntv_mock/widgets/texts.dart';
+import 'package:ntv_mock/page/live_tv_page.dart';
+import 'package:ntv_mock/widget/texts.dart';
 
 class HomeList {
   static Widget generateListView(

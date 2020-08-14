@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ntv_mock/pages/bookmark_page.dart';
-import 'package:ntv_mock/pages/home_page.dart';
-import 'package:ntv_mock/pages/search_page.dart';
-import 'package:ntv_mock/pages/settings_page.dart';
+import 'package:ntv_mock/page/bookmark_page.dart';
+import 'package:ntv_mock/page/home_page.dart';
+import 'package:ntv_mock/page/search_page.dart';
+import 'package:ntv_mock/page/settings_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:ntv_mock/widgets/custom_widgets.dart';
+import 'package:ntv_mock/widget/custom_widgets.dart';
 
 class LandingPage extends StatefulWidget {
   LandingPage({Key key}) : super(key: key);
@@ -25,7 +25,7 @@ class _LandingPageState extends State<LandingPage> {
   List<Widget> _buildScreens() {
     return [
       HomePage(),
-      SearchPage(),
+//      SearchPage(),
       BookmarkPage(),
       SettingsPage(),
     ];
@@ -40,13 +40,13 @@ class _LandingPageState extends State<LandingPage> {
         inactiveColor: Colors.grey,
         isTranslucent: false,
       ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.search),
-        title: ("সার্চ করুন"),
-        activeColor: Colors.blue,
-        inactiveColor: Colors.grey,
-        isTranslucent: false,
-      ),
+//      PersistentBottomNavBarItem(
+//        icon: Icon(Icons.search),
+//        title: ("সার্চ করুন"),
+//        activeColor: Colors.blue,
+//        inactiveColor: Colors.grey,
+//        isTranslucent: false,
+//      ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.bookmark_border),
         title: ("বুকমার্ক"),

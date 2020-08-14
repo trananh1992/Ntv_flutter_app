@@ -21,6 +21,11 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_bloc:
+  http:
+  meta:
+  equatable:
+  marquee:
   persistent_bottom_nav_bar:
   carousel_slider:
   youtube_player_flutter:

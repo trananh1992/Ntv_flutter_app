@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ntv_mock/pages/live_tv_page.dart';
-import 'package:ntv_mock/widgets/home_list.dart';
+import 'package:ntv_mock/page/live_tv_page.dart';
+import 'package:ntv_mock/widget/home_list.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = TabController(length: 8, vsync: this);
+    _tabController = TabController(length: 9, vsync: this);
   }
 
   @override
@@ -71,8 +71,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         elevation: 0,
         actions: <Widget>[
-//          IconButton(icon: Icon(Icons.search), onPressed: () {}),
-          IconButton(icon: Icon(Icons.notifications_none), onPressed: () {}),
+
         ],
         centerTitle: true,
         leading: Column(
@@ -93,6 +92,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               isScrollable: true,
               controller: _tabController,
               tabs: [
+                Text("সকল", style: TextStyle(color: Color(0xFF0e6b39)),),
                 Text("বাংলাদেশ", style: TextStyle(color: Color(0xFF0e6b39)),),
                 Text("বিশ্ব", style: TextStyle(color: Color(0xFF0e6b39)),),
                 Text("বিনোদন", style: TextStyle(color: Color(0xFF0e6b39)),),
