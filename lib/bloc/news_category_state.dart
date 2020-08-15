@@ -2,17 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:ntv_mock/model/news_category.dart';
 
-// Events
-
-abstract class NewsCategoryEvent extends Equatable {}
-
-class FetchNewsCategoryEvent extends NewsCategoryEvent {
-  @override
-  List<Object> get props => [];
-}
-
-// States
-
+@immutable
 class NewsCategoryState extends Equatable {
   @override
   List<Object> get props => [];

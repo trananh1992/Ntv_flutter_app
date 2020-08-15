@@ -1,46 +1,6 @@
 import 'package:ntv_mock/model/news_category.dart';
 
 class News {
-  String _tid;
-  String _name;
-  List<Items> _items;
-
-  News({String tid, String name, List<Items> items}) {
-    this._tid = tid;
-    this._name = name;
-    this._items = items;
-  }
-
-  String get tid => _tid;
-  set tid(String tid) => _tid = tid;
-  String get name => _name;
-  set name(String name) => _name = name;
-  List<Items> get items => _items;
-  set items(List<Items> items) => _items = items;
-
-  News.fromJson(Map<String, dynamic> json) {
-    _tid = json['tid'];
-    _name = json['name'];
-    if (json['items'] != null) {
-      _items = new List<Items>();
-      json['items'].forEach((v) {
-        _items.add(new Items.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['tid'] = this._tid;
-    data['name'] = this._name;
-    if (this._items != null) {
-      data['items'] = this._items.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Items {
   String _nid;
   String _title;
   String _url;
@@ -53,7 +13,7 @@ class Items {
   FeaturedImage _featuredImage;
   String _hideFeaturedImageInDetails;
 
-  Items(
+  News(
       {String nid,
         String title,
         String url,
@@ -104,7 +64,7 @@ class Items {
   set hideFeaturedImageInDetails(String hideFeaturedImageInDetails) =>
       _hideFeaturedImageInDetails = hideFeaturedImageInDetails;
 
-  Items.fromJson(Map<String, dynamic> json) {
+  News.fromJson(Map<String, dynamic> json) {
     _nid = json['nid'];
     _title = json['title'];
     _url = json['url'];
@@ -214,27 +174,21 @@ class UrlCategory {
 
 class FeaturedImage {
   String _image;
-  String _caption;
 
-  FeaturedImage({String image, String caption}) {
+  FeaturedImage({String image}) {
     this._image = image;
-    this._caption = caption;
   }
 
   String get image => _image;
   set image(String image) => _image = image;
-  String get caption => _caption;
-  set caption(String caption) => _caption = caption;
 
   FeaturedImage.fromJson(Map<String, dynamic> json) {
     _image = json['image'];
-    _caption = json['caption'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['image'] = this._image;
-    data['caption'] = this._caption;
     return data;
   }
 }

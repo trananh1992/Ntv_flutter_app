@@ -4,12 +4,14 @@ import 'package:ntv_mock/bloc/news_category_state.dart';
 import 'package:ntv_mock/model/news_category.dart';
 import 'package:ntv_mock/repository/news_category_repo.dart';
 
+import 'news_category_event.dart';
+
 class NewsCategoryBloc extends Bloc<NewsCategoryEvent, NewsCategoryState> {
-  final NewsCategoryRepository newsRepository;
 
-  NewsCategoryBloc({@required this.newsRepository}) : assert(newsRepository != null), super(null);
+  final NewsCategoryRepository newsCategoryRepository;
 
-  @override
+  NewsCategoryBloc({@required this.newsCategoryRepository}) : assert(newsCategoryRepository != null), super(null);
+  
   NewsCategoryState get initialState => NewsCategoryInitialState();
 
   @override
@@ -17,7 +19,7 @@ class NewsCategoryBloc extends Bloc<NewsCategoryEvent, NewsCategoryState> {
     if (event is FetchNewsCategoryEvent) {
       yield NewsCategoryLoadingState();
       try {
-        List<NewsCategory> newsCategories = await newsRepository.getNewsCategory();
+        List<NewsCategory> newsCategories = await newsCategoryRepository.fetchNewsCategory();
         yield NewsCategoryLoadedState(newsCategories: newsCategories);
       } catch (e) {
         yield NewsCategoryErrorState(errorMessage: e.toString());

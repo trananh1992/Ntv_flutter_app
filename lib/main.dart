@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ntv_mock/bloc/news_bloc.dart';
 import 'package:ntv_mock/bloc/news_category_bloc.dart';
 import 'package:ntv_mock/page/home_page.dart';
 import 'package:ntv_mock/page/landing_page.dart';
 import 'package:ntv_mock/page/live_tv_page.dart';
 import 'package:ntv_mock/repository/news_category_repo.dart';
+import 'package:ntv_mock/repository/news_repo.dart';
 import 'package:ntv_mock/test/test_page.dart';
 import 'package:ntv_mock/ui/colors.dart';
 
@@ -27,9 +29,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: primaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BlocProvider(
-        create: (context) => NewsCategoryBloc(newsRepository: NewsCategoryImp()),
-        child: TestPage(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<NewsBloc>(
+            create: (context) => NewsBloc(newsRepository: NewsImp()),
+          ),
+          BlocProvider<NewsCategoryBloc>(
+            create: (context) => NewsCategoryBloc(newsCategoryRepository: NewsCategoryImp()),
+          ),
+        ],
+        child: LandingPage(),
       )
     );
   }

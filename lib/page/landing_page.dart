@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ntv_mock/page/bookmark_page.dart';
 import 'package:ntv_mock/page/home_page.dart';
+import 'package:ntv_mock/page/news_page.dart';
 import 'package:ntv_mock/page/search_page.dart';
 import 'package:ntv_mock/page/settings_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -24,7 +25,7 @@ class _LandingPageState extends State<LandingPage> {
 
   List<Widget> _buildScreens() {
     return [
-      HomePage(),
+      NewsPage(),
 //      SearchPage(),
       BookmarkPage(),
       SettingsPage(),
