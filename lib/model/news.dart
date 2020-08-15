@@ -174,21 +174,30 @@ class UrlCategory {
 
 class FeaturedImage {
   String _image;
+  String _caption;
 
-  FeaturedImage({String image}) {
+  FeaturedImage({String image, String caption}) {
     this._image = image;
+    this._caption = caption;
   }
 
   String get image => _image;
   set image(String image) => _image = image;
 
+  String get caption => _caption;
+  set caption(String value) {
+    _caption = value;
+  }
+
   FeaturedImage.fromJson(Map<String, dynamic> json) {
     _image = json['image'];
+    _caption = json['caption'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['image'] = this._image;
+    data['caption'] = this._caption;
     return data;
   }
 }

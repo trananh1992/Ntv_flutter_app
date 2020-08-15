@@ -9,7 +9,7 @@ abstract class NewsCategoryRepository {
   Future<List<NewsCategory>> fetchNewsCategory();
 }
 
-class NewsCategoryImp implements NewsCategoryRepository {
+class FetchNewsCategory implements NewsCategoryRepository {
 
   String _url = 'https://www.ntvbd.com/json/category/news/list';
 

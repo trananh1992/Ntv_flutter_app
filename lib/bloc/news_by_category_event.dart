@@ -1,5 +1,15 @@
 part of 'news_by_category_bloc.dart';
 
-abstract class NewsByCategoryEvent extends Equatable {
-  const NewsByCategoryEvent();
+@immutable
+abstract class NewsByCategoryEvent extends Equatable {}
+
+class FetchNewsByCategoryEvent extends NewsByCategoryEvent {
+
+  final String termId;
+  final int newsCount;
+
+  FetchNewsByCategoryEvent({@required this.termId, this.newsCount}) : assert(termId != null);
+
+  @override
+  List<Object> get props => [];
 }

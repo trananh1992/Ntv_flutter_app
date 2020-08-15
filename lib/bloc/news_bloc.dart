@@ -23,7 +23,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     if (event is FetchNewsEvent) {
       yield NewsLoadingState();
       try {
-        News news = await newsRepository.fetchNews(event.nodeId);
+        News news = await newsRepository.fetchSingleNews(event.nodeId);
         yield NewsLoadedState(news: news);
       } catch (e) {
         yield NewsErrorState(errorMessage: e.toString());
@@ -31,3 +31,5 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     }
   }
 }
+
+
