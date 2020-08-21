@@ -12,8 +12,9 @@ class HomeList {
           color: Colors.grey[200],
           height: 5,
         ),
-        SizedBox(height: 5),
-        NtvTexts.homeSubTitle(header),
+        SizedBox(height: 10),
+        NtvTexts.newsSubTitle(header),
+        SizedBox(height: 10),
         Container(
           height: 150,
           child: ListView.builder(
@@ -22,7 +23,7 @@ class HomeList {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => NtvLivePlayerPage()));
+
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,3 +58,4 @@ class HomeList {
     );
   }
 }
+

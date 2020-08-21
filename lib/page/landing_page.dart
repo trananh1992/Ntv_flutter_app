@@ -25,7 +25,7 @@ class _LandingPageState extends State<LandingPage> {
 
   List<Widget> _buildScreens() {
     return [
-      NewsPage(),
+      HomePage(),
 //      SearchPage(),
       BookmarkPage(),
       SettingsPage(),

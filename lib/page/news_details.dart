@@ -56,6 +56,14 @@ class _NewsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    DateTime _createdTime = DateTime.parse(news.created);
+    String _createdTimeString = _createdTime.hour.toString() + ":"
+        + _createdTime.minute.toString() + " - "
+        + _createdTime.day.toString() + "/"
+        + _createdTime.month.toString() + "/"
+        + _createdTime.year.toString();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ListView(
@@ -87,7 +95,7 @@ class _NewsBody extends StatelessWidget {
             ),
             title: Text(news.author[0].name),
             subtitle: Text(
-              news.created
+              _createdTimeString
             ),
           ),
 
@@ -102,14 +110,13 @@ class _NewsBody extends StatelessWidget {
             child: Image.network(news.featuredImage.image),
           ),
           Text(
-            news.featuredImage.caption,
+            news.featuredImage?.caption ?? "" ,
             style: TextStyle(
               fontSize: 12
             ),
           ),
 
           SizedBox(height: 5),
-
           Html(data: news.body)
         ],
       ),

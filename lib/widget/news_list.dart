@@ -18,7 +18,7 @@ class NewsList {
           height: 5,
         ),
         SizedBox(height: 7),
-        NtvTexts.homeSubTitle(newsByCategory.name),
+        NtvTexts.newsSubTitle(newsByCategory.name),
         Column(
           children: <Widget>[
             // Big Thumbnail

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ntv_mock/page/live_tv_page.dart';
+import 'package:ntv_mock/page/news_page.dart';
 import 'package:ntv_mock/widget/home_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = TabController(length: 9, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
   }
 
   @override
@@ -71,60 +72,86 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         elevation: 0,
         actions: <Widget>[
-
+          IconButton(padding: EdgeInsets.only(right: 10),
+              icon: Icon(Icons.live_tv), onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => NtvLivePlayerPage()));
+          }),
         ],
         centerTitle: true,
-        leading: Column(
-          children: <Widget>[
-            IconButton(icon: Icon(Icons.live_tv), onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => NtvLivePlayerPage()));
-            }),
-          ],
-        ),
         title: Container(
             height: 45,
             child: Image(image: AssetImage('assets/logo.png'), fit: BoxFit.fitHeight,)),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(25),
-          child: Material(
-            color: Colors.white,
-            child: TabBar(
-              isScrollable: true,
-              controller: _tabController,
-              tabs: [
-                Text("সকল", style: TextStyle(color: Color(0xFF0e6b39)),),
-                Text("বাংলাদেশ", style: TextStyle(color: Color(0xFF0e6b39)),),
-                Text("বিশ্ব", style: TextStyle(color: Color(0xFF0e6b39)),),
-                Text("বিনোদন", style: TextStyle(color: Color(0xFF0e6b39)),),
-                Text("খেলাধুলা", style: TextStyle(color: Color(0xFF0e6b39)),),
-                Text("রাজনীতি", style: TextStyle(color: Color(0xFF0e6b39)),),
-                Text("অপরাধ", style: TextStyle(color: Color(0xFF0e6b39)),),
-                Text("আইন ও বিচার", style: TextStyle(color: Color(0xFF0e6b39)),),
-                Text("অন্যান্য", style: TextStyle(color: Color(0xFF0e6b39)),),
-              ],
-            ),
+          preferredSize: Size.fromHeight(50),
+          child: TabBar(
+            labelStyle: TextStyle(color: Color(0xFF0e6b39)),
+            isScrollable: true,
+            controller: _tabController,
+            tabs: [
+              Tab(text: "সকল"),
+              Tab(text: "খবর"),
+            Tab(text: "ফিচার"),
+          Tab(text: "ছবি"),
+        Tab(text: "ভিডিও"),
+    Tab(text: "নাটক"),
+    Tab(text: "সিনেমা"),
+            ],
           ),
         ),
       ),
-      body: ListView(
-        children: <Widget>[
-          SizedBox(height: 20,),
-          CarouselSlider(
-            options: CarouselOptions(
-              autoPlay: true,
-              aspectRatio: 2.0,
-              enlargeCenterPage: true,
+      body: TabBarView(
+        controller: _tabController,
+          children: [
+            ListView(
+              children: <Widget>[
+                SizedBox(height: 20,),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    aspectRatio: 2.0,
+                    enlargeCenterPage: true,
+                  ),
+                  items: imageSliders,
+                ),
+                SizedBox(height: 20,),
+                HomeList.generateListView(imgListRecent, titlesRecent, "   সর্বশেষ"),
+                HomeList.generateListView(imgListBD, titlesBD, "   খবর"),
+                HomeList.generateListView(imgListInt, titlesInt, "   সিনেমা"),
+                HomeList.generateListView(imgListSp, titlesSp, "   বিনোদন"),
+                SizedBox(height: 20,)
+              ],
             ),
-            items: imageSliders,
-          ),
-          SizedBox(height: 20,),
-          HomeList.generateListView(imgListRecent, titlesRecent, "   সর্বশেষ"),
-          HomeList.generateListView(imgListBD, titlesBD, "   বাংলাদেশ"),
-          HomeList.generateListView(imgListInt, titlesInt, "   আন্তর্জাতিক"),
-          HomeList.generateListView(imgListSp, titlesSp, "   খেলাধুলা"),
-          SizedBox(height: 20,)
-        ],
+            NewsPage(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+            Container(),
+          ]
       ),
+      drawer: Drawer(
+        child: CatDrawer(),
+      ),
+    );
+  }
+}
+
+class CatDrawer extends StatelessWidget {
+
+  static var _cat = "বাংলাদেশ বিশ্ব খেলাধুলা বিনোদন অর্থনীতি শিক্ষা মত-দ্বিমত শিল্প-ও-সাহিত্য জীবনধারা স্বাস্থ্য বিজ্ঞান-ও-প্রযুক্তি ভ্রমণ ধর্ম-ও-জীবন সহজ ইংরেজি প্রিয় প্রবাসী আইন-কানুন চাকরি-চাই অটোমোবাইল শিশু-কিশোর হাস্যরস নির্বাচন";
+
+  List<String> _cats = _cat.split(" ");
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: _cats.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            onTap: () {},
+            title: Text(_cats[index]),
+          );
+        }
     );
   }
 }

@@ -120,27 +120,27 @@ class News {
 
 class Author {
   String _nid;
-  String _name;
+  String _title;
 
   Author({String nid, String name}) {
     this._nid = nid;
-    this._name = name;
+    this._title = name;
   }
 
   String get nid => _nid;
   set nid(String nid) => _nid = nid;
-  String get name => _name;
-  set name(String name) => _name = name;
+  String get name => _title;
+  set name(String name) => _title = name;
 
   Author.fromJson(Map<String, dynamic> json) {
     _nid = json['nid'];
-    _name = json['name'];
+    _title = json['title'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['nid'] = this._nid;
-    data['name'] = this._name;
+    data['title'] = this._title;
     return data;
   }
 }
