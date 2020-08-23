@@ -16,6 +16,9 @@ class NewsByCategoryBloc extends Bloc<NewsByCategoryEvent, NewsByCategoryState> 
   NewsByCategoryBloc({@required this.newsRepository})
       : assert(newsRepository != null), super(NewsByCategoryInitialState());
 
+
+
+
   @override
   Stream<NewsByCategoryState> mapEventToState(NewsByCategoryEvent event) async* {
     if (event is FetchNewsByCategoryEvent) {

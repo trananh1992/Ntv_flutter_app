@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ntv_mock/page/all_news_page.dart';
 import 'package:ntv_mock/page/live_tv_page.dart';
 import 'package:ntv_mock/page/news_page.dart';
 import 'package:ntv_mock/widget/home_list.dart';
+import 'package:marquee/marquee.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   TabController _tabController;
+  String eimatro = "১৫:২৮ দেশে করোনাভাইরাসে আক্রান্ত হয়ে গত ২৪ ঘণ্টায় ৩৪ জনের মৃত্যু, এ নিয়ে মৃতের সংখ্যা দাঁড়াল তিন হাজার ৯৪১, নতুন করে এক হাজার ৯৭৩ জন আক্রান্ত হয়েছে, মোট আক্রান্ত দুই লাখ ৯৪ হাজার ৫৯৮ জন : স্বাস্থ্য অধিদপ্তর";
 
   @override
   void initState() {
@@ -104,7 +107,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           children: [
             ListView(
               children: <Widget>[
-                SizedBox(height: 20,),
+                SizedBox(height: 10,),
+                Container(
+                  color: Colors.red,
+                  height: 30,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          height: 30,
+                          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                          color: Colors.black,
+                            child: Center(child: Text('এইমাত্র', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),))
+                        ),
+                        Flexible(
+                            child: Marquee(
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                              ),
+                                text: eimatro
+                            ),
+                        ),
+                      ],
+                    )
+                ),
+                SizedBox(height: 10,),
                 CarouselSlider(
                   options: CarouselOptions(
                     autoPlay: true,
@@ -148,6 +175,7 @@ class CatDrawer extends StatelessWidget {
         itemCount: _cats.length,
         itemBuilder: (context, index) {
           return ListTile(
+            leading: Icon(Icons.blur_circular),
             onTap: () {},
             title: Text(_cats[index]),
           );
