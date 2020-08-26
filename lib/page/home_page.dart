@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ],
             ),
             NewsPage(),
-            Container(),
+            AllNewsPage(),
             Container(),
             Container(),
             Container(),

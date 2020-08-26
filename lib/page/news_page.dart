@@ -30,12 +30,12 @@ class NewsPage extends StatelessWidget {
           itemBuilder: (context, index) {
            return BlocBuilder<NewsByCategoryBloc, NewsByCategoryState>(
              builder: (context, state) {
-               if (state is NewsByCategoryErrorState) {
+               if (state is NewsByCategoryError) {
                  return Center(
                    child: Text("Could not reach server"),
                  );
                }
-               else if (state is NewsByCategoryLoadedState) {
+               else if (state is NewsByCategoryLoaded) {
                  return NewsList.generateListView(state.newsByCategories[index], context);
                }
                return Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ntv_mock/bloc/news_bloc.dart';
 import 'package:ntv_mock/bloc/news_by_category_bloc.dart';
 import 'package:ntv_mock/bloc/news_category_bloc.dart';
 
@@ -13,21 +14,24 @@ class _AllNewsPageState extends State<AllNewsPage> {
 
   NewsByCategoryBloc _bloc;
   ScrollController _scrollController;
+  final int _scrollThreshold = 200;
+  int _offset;
 
   void _onScroll() {
-    final int _scrollThreshold = 200;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
-      _bloc.add(FetchNewsByCategoryEvent(termId: '2743', newsCount: 10));
+      _bloc.add(FetchNewsSingleCategoryEvent(termId: '2743', newsCount: 10, offset: _offset));
     }
+    print("reached bottom");
   }
 
   @override
   void initState() {
     super.initState();
+    _offset = 0;
     _bloc = BlocProvider.of<NewsByCategoryBloc>(context);
-    _bloc.add(FetchNewsByCategoryEvent(termId: '2743', newsCount: 20));
+    _bloc.add(FetchNewsSingleCategoryEvent(termId: '2743', newsCount: 20, offset: _offset));
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }
@@ -42,33 +46,20 @@ class _AllNewsPageState extends State<AllNewsPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<NewsByCategoryBloc, NewsByCategoryState>(
       builder: (context, state) {
-        if (state is NewsByCategoryInitialState) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state is NewsByCategoryErrorState) {
-          return Center(
-            child: Text("Could not reach server"),
-          );
-        }
-        else if (state is NewsByCategoryLoadedState) {
+        if (state is NewsSingleCategoryLoaded) {
+          print("building");
+          _offset++;
           return ListView.builder(
-              itemBuilder: (context, index) {
-                return index >= state.newsByCategories[0].items.length
-                    ? BottomLoader()
-                    : ListTile(title: Text(state.newsByCategories[0].items[index].title),);
-              },
-              itemCount: state.newsByCategories[0].items.length + 1,
             controller: _scrollController,
+            itemCount: state.newsSingleCategory.items.length + 1,
+              itemBuilder: (context, index) {
+                return index >= state.newsSingleCategory.items.length
+                    ? BottomLoader()
+                    : ListTile(title: Text(state.newsSingleCategory.items[index].title),);
+              }
           );
         }
-        return Container(
-            height: MediaQuery.of(context).size.height,
-            child: Center(
-                child: CircularProgressIndicator()
-            )
-        );
+        return Center(child: CircularProgressIndicator());
       },
     );
   }

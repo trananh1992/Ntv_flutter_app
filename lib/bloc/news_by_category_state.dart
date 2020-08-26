@@ -5,24 +5,47 @@ class NewsByCategoryState extends Equatable {
   List<Object> get props => [];
 }
 
-class NewsByCategoryInitialState extends NewsByCategoryState {}
+class NewsByCategoryInitial extends NewsByCategoryState {}
 
-class NewsByCategoryLoadingState extends NewsByCategoryState {}
+class NewsByCategoryLoading extends NewsByCategoryState {}
 
-class NewsByCategoryLoadedState extends NewsByCategoryState {
+class NewsByCategoryLoaded extends NewsByCategoryState {
 
   final List<NewsByCategory> newsByCategories;
 
-  NewsByCategoryLoadedState({@required this.newsByCategories}) : assert(newsByCategories != null);
+  NewsByCategoryLoaded({@required this.newsByCategories}) : assert(newsByCategories != null);
 
   @override
   List<Object> get props => [newsByCategories];
+
+  NewsByCategoryLoaded copyWith({List<NewsByCategory> newsByCategories}) {
+    return NewsByCategoryLoaded(
+        newsByCategories: newsByCategories ?? this.newsByCategories
+    );
+  }
 }
-class NewsByCategoryErrorState extends NewsByCategoryState {
+
+class NewsSingleCategoryLoaded extends NewsByCategoryState {
+
+  final NewsByCategory newsSingleCategory;
+
+  NewsSingleCategoryLoaded({@required this.newsSingleCategory}) : assert(newsSingleCategory != null);
+
+  @override
+  List<Object> get props => [newsSingleCategory];
+
+  NewsSingleCategoryLoaded copyWith({NewsByCategory newsSingleCategories}) {
+    return NewsSingleCategoryLoaded(
+        newsSingleCategory: newsSingleCategories ?? this.newsSingleCategory
+    );
+  }
+}
+
+class NewsByCategoryError extends NewsByCategoryState {
 
   final String errorMessage;
 
-  NewsByCategoryErrorState({@required this.errorMessage})
+  NewsByCategoryError({@required this.errorMessage})
       : assert(errorMessage != null);
 
   @override
