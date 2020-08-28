@@ -6,17 +6,62 @@ import 'package:ntv_mock/page/news_details.dart';
 import 'package:ntv_mock/widget/texts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class NewsList {
+class NewsList extends StatelessWidget {
 
-  static List<Widget> genarateList(List<News> news, double screenWidth, BuildContext context) {
+  final NewsByCategory newsByCategory;
+
+  NewsList({@required this.newsByCategory});
+
+  static List<Widget> genarateList(List<News> news) {
 
     List<Widget> widgets = List();
 
-    widgets.add(InkWell(
+    for(int i = 0 ; i < news.length ; i++) {
+      if (i == 0)
+        widgets.add(BigThumbnail(news: news[i]));
+      else
+        widgets.add(NewsTile(news: news[i]));
+    }
+    return widgets;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          color: Colors.grey[200],
+          height: 5,
+        ),
+        SizedBox(height: 7),
+        NtvTexts.newsSubTitle(newsByCategory.name),
+        SizedBox(height: 7),
+        Column(
+            children: genarateList(newsByCategory.items)
+        ),
+      ],
+    );
+  }
+}
+
+class BigThumbnail extends StatelessWidget {
+
+  final News news;
+
+  BigThumbnail({@required this.news});
+
+  @override
+  Widget build(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewsDetailsPage(news: news[0])));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewsDetailsPage(news: news)));
       },
       child: Container(
         margin: EdgeInsets.only(top: 3, left: 10, right: 10),
@@ -24,7 +69,7 @@ class NewsList {
         width: screenWidth,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage(news[0].featuredImage.image),
+                image: NetworkImage(news.featuredImage.image),
                 fit: BoxFit.cover
             ),
             borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -51,7 +96,7 @@ class NewsList {
                   padding: EdgeInsets.only(
                       top: 40.0, bottom: 10.0, left: 10.0, right: 10.0),
                   child: Text(
-                    news[0].title,
+                    news.title,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -64,79 +109,70 @@ class NewsList {
           ),
         ),
       ),
-    ));
-
-    for(int i = 1 ; i < news.length ; i++) {
-
-      DateTime _postTime = DateTime.parse(news[i].created);
-      String _timeAgo = timeago.format(_postTime, locale: 'en');
-
-      widgets.add(
-        InkWell(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewsDetailsPage(news: news[i])));
-          },
-          child: Container(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                    margin:
-                    EdgeInsets.only(top: 10, bottom: 5, left: 10),
-                    height: screenWidth * .2,
-                    width: screenWidth * .3,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(news[i].featuredImage.image),
-                            fit: BoxFit.cover
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(5)))),
-                Flexible(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                            child: Text(
-                              news[i].title,
-                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                            )),
-                        SizedBox(height: 3,),
-                        Text(_timeAgo, style: TextStyle(color: Colors.grey[500]),)
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
-    return widgets;
-  }
-
-  static Widget generateListView(NewsByCategory newsByCategory, BuildContext context) {
-
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          color: Colors.grey[200],
-          height: 5,
-        ),
-        SizedBox(height: 7),
-        NtvTexts.newsSubTitle(newsByCategory.name),
-        SizedBox(height: 7),
-        Column(
-          children: genarateList(newsByCategory.items, screenWidth, context)
-        ),
-      ],
     );
   }
 }
+
+class NewsTile extends StatelessWidget {
+
+  final News news;
+
+  NewsTile({@required this.news});
+
+  @override
+  Widget build(BuildContext context) {
+
+    DateTime _postTime = DateTime.parse(news.created);
+    String _timeAgo = timeago.format(_postTime, locale: 'en');
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => NewsDetailsPage(news: news)));
+      },
+      child: Container(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+                margin:
+                EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                height: screenWidth * .2,
+                width: screenWidth * .3,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(news.featuredImage.image),
+                        fit: BoxFit.cover
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5)))),
+            Flexible(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                        child: Text(
+                          news.title,
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        )),
+                    SizedBox(height: 3,),
+                    Text(_timeAgo, style: TextStyle(color: Colors
+                        .grey[500]),)
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+

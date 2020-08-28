@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ntv_mock/model/news.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:meta/meta.dart';
 import 'package:ntv_mock/model/news_by_category.dart';
@@ -50,7 +51,9 @@ class NewsByCategoryBloc
         await newsRepository.fetchNewsSingleCategory(
             event.termId, event.newsCount, event.offset);
 
-        newsSingleCategoryOffset.items = (state as NewsSingleCategoryLoaded).newsSingleCategory.items + newsSingleCategoryOffset.items;
+        List<News> mergedItems = (state as NewsSingleCategoryLoaded).newsSingleCategory.items + newsSingleCategoryOffset.items;
+
+        newsSingleCategoryOffset.items = mergedItems;
         yield NewsSingleCategoryLoaded(newsSingleCategory: newsSingleCategoryOffset);
         return;
       }

@@ -7,6 +7,7 @@ import 'package:ntv_mock/bloc/news_category_event.dart';
 import 'package:ntv_mock/bloc/news_category_state.dart';
 import 'package:ntv_mock/page/live_tv_page.dart';
 import 'package:ntv_mock/repository/news_repo.dart';
+import 'package:ntv_mock/widget/news_list_shimmer.dart';
 import 'package:ntv_mock/widget/news_list_simple.dart';
 
 class NewsPage extends StatelessWidget {
@@ -36,14 +37,9 @@ class NewsPage extends StatelessWidget {
                  );
                }
                else if (state is NewsByCategoryLoaded) {
-                 return NewsList.generateListView(state.newsByCategories[index], context);
+                 return NewsList(newsByCategory: state.newsByCategories[index]);
                }
-               return Container(
-                 height: MediaQuery.of(context).size.height,
-                   child: Center(
-                       child: CircularProgressIndicator()
-                   )
-               );
+               return NewsListShimmer();
              },
            );
           }
