@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       title: "NTV Online",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'SolaimanLipi',
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           brightness: Brightness.dark,

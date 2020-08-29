@@ -12,9 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-
   TabController _tabController;
-  String eimatro = "১৫:২৮ দেশে করোনাভাইরাসে আক্রান্ত হয়ে গত ২৪ ঘণ্টায় ৩৪ জনের মৃত্যু, এ নিয়ে মৃতের সংখ্যা দাঁড়াল তিন হাজার ৯৪১, নতুন করে এক হাজার ৯৭৩ জন আক্রান্ত হয়েছে, মোট আক্রান্ত দুই লাখ ৯৪ হাজার ৫৯৮ জন : স্বাস্থ্য অধিদপ্তর";
+  String eimatro =
+      "১৫:২৮ দেশে করোনাভাইরাসে আক্রান্ত হয়ে গত ২৪ ঘণ্টায় ৩৪ জনের মৃত্যু, এ নিয়ে মৃতের সংখ্যা দাঁড়াল তিন হাজার ৯৪১, নতুন করে এক হাজার ৯৭৩ জন আক্রান্ত হয়েছে, মোট আক্রান্ত দুই লাখ ৯৪ হাজার ৫৯৮ জন : স্বাস্থ্য অধিদপ্তর";
 
   @override
   void initState() {
@@ -25,137 +25,154 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     final List<Widget> imageSliders = imgList
         .map((item) => GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => NtvLivePlayerPage()));
-      },
-      child: Container(
-        child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            child: Stack(
-              children: <Widget>[
-                Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(200, 0, 0, 0),
-                          Color.fromARGB(200, 0, 0, 0),
-                          Color.fromARGB(0, 0, 0, 0)
-                        ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 20.0),
-                    child: Text(
-                      titles[imgList.indexOf(item)],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      ),
-    ))
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NtvLivePlayerPage()));
+              },
+              child: Container(
+                child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    child: Stack(
+                      children: <Widget>[
+                        Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                        Positioned(
+                          bottom: 0.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(200, 0, 0, 0),
+                                  Color.fromARGB(200, 0, 0, 0),
+                                  Color.fromARGB(0, 0, 0, 0)
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
+                            child: Text(
+                              titles[imgList.indexOf(item)],
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+            ))
         .toList();
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         actions: <Widget>[
-          IconButton(padding: EdgeInsets.only(right: 10),
-              icon: Icon(Icons.live_tv), onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => NtvLivePlayerPage()));
-          }),
+          IconButton(
+              padding: EdgeInsets.only(right: 10),
+              icon: Icon(Icons.live_tv),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NtvLivePlayerPage()));
+              }),
         ],
         centerTitle: true,
         title: Container(
             height: 45,
-            child: Image(image: AssetImage('assets/logo.png'), fit: BoxFit.fitHeight,)),
+            child: Image(
+              image: AssetImage('assets/logo.png'),
+              fit: BoxFit.fitHeight,
+            )),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: TabBar(
-            labelStyle: TextStyle(color: Color(0xFF0e6b39)),
+            labelStyle: TextStyle(color: Color(0xFF0e6b39), fontFamily: 'SolaimanLipi',),
             isScrollable: true,
             controller: _tabController,
             tabs: [
               Tab(text: "সকল"),
               Tab(text: "খবর"),
-            Tab(text: "ফিচার"),
-          Tab(text: "ছবি"),
-        Tab(text: "ভিডিও"),
-    Tab(text: "নাটক"),
-    Tab(text: "সিনেমা"),
+              Tab(text: "ফিচার"),
+              Tab(text: "ছবি"),
+              Tab(text: "ভিডিও"),
+              Tab(text: "নাটক"),
+              Tab(text: "সিনেমা"),
             ],
           ),
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-          children: [
-            ListView(
-              children: <Widget>[
-                SizedBox(height: 10,),
-                Container(
-                  color: Colors.red,
-                  height: 30,
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          height: 30,
-                          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                          color: Colors.black,
-                            child: Center(child: Text('এইমাত্র', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),))
-                        ),
-                        Flexible(
-                            child: Marquee(
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
-                              ),
-                                text: eimatro
-                            ),
-                        ),
-                      ],
-                    )
-                ),
-                SizedBox(height: 10,),
-                CarouselSlider(
-                  options: CarouselOptions(
-                    autoPlay: true,
-                    aspectRatio: 2.0,
-                    enlargeCenterPage: true,
-                  ),
-                  items: imageSliders,
-                ),
-                SizedBox(height: 20,),
-                HomeList.generateListView(imgListRecent, titlesRecent, "   সর্বশেষ"),
-                HomeList.generateListView(imgListBD, titlesBD, "   খবর"),
-                HomeList.generateListView(imgListInt, titlesInt, "   সিনেমা"),
-                HomeList.generateListView(imgListSp, titlesSp, "   বিনোদন"),
-                SizedBox(height: 20,)
-              ],
+      body: TabBarView(controller: _tabController, children: [
+        ListView(
+          children: <Widget>[
+            SizedBox(
+              height: 10,
             ),
-            NewsPage(),
-            AllNewsPage(),
-            Container(),
-            Container(),
-            Container(),
-            Container(),
-          ]
-      ),
+            Container(
+                color: Colors.red,
+                height: 30,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                        height: 30,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                        color: Colors.black,
+                        child: Center(
+                            child: Text(
+                          'এইমাত্র',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ))),
+                    Flexible(
+                      child: Marquee(
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                          text: eimatro),
+                    ),
+                  ],
+                )),
+            SizedBox(
+              height: 10,
+            ),
+            CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: true,
+                aspectRatio: 2.0,
+                enlargeCenterPage: true,
+              ),
+              items: imageSliders,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            HomeList.generateListView(
+                imgListRecent, titlesRecent, "   সর্বশেষ"),
+            HomeList.generateListView(imgListBD, titlesBD, "   খবর"),
+            HomeList.generateListView(imgListInt, titlesInt, "   সিনেমা"),
+            HomeList.generateListView(imgListSp, titlesSp, "   বিনোদন"),
+            SizedBox(
+              height: 20,
+            )
+          ],
+        ),
+        NewsPage(),
+        AllNewsPage(),
+        Container(),
+        Container(),
+        Container(),
+        Container(),
+      ]),
       drawer: Drawer(
         child: CatDrawer(),
       ),
@@ -164,8 +181,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 }
 
 class CatDrawer extends StatelessWidget {
-
-  static var _cat = "বাংলাদেশ বিশ্ব খেলাধুলা বিনোদন অর্থনীতি শিক্ষা মত-দ্বিমত শিল্প-ও-সাহিত্য জীবনধারা স্বাস্থ্য বিজ্ঞান-ও-প্রযুক্তি ভ্রমণ ধর্ম-ও-জীবন সহজ ইংরেজি প্রিয় প্রবাসী আইন-কানুন চাকরি-চাই অটোমোবাইল শিশু-কিশোর হাস্যরস নির্বাচন";
+  static var _cat =
+      "বাংলাদেশ বিশ্ব খেলাধুলা বিনোদন অর্থনীতি শিক্ষা মত-দ্বিমত শিল্প-ও-সাহিত্য জীবনধারা স্বাস্থ্য বিজ্ঞান-ও-প্রযুক্তি ভ্রমণ ধর্ম-ও-জীবন সহজ ইংরেজি প্রিয় প্রবাসী আইন-কানুন চাকরি-চাই অটোমোবাইল শিশু-কিশোর হাস্যরস নির্বাচন";
 
   List<String> _cats = _cat.split(" ");
 
@@ -179,8 +196,7 @@ class CatDrawer extends StatelessWidget {
             onTap: () {},
             title: Text(_cats[index]),
           );
-        }
-    );
+        });
   }
 }
 
