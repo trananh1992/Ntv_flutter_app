@@ -4,9 +4,9 @@ Widget liveButton = Container(
   child: Center(
     child: Container(
       color: Colors.red,
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
       child: Text(
-        "L I V E",
+        "LIVE",
         style: TextStyle(
           fontSize: 12,
           color: Colors.white,

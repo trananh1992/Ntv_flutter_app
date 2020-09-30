@@ -5,6 +5,7 @@ import 'package:ntv_mock/page/live_tv_page.dart';
 import 'package:ntv_mock/page/news_page.dart';
 import 'package:ntv_mock/widget/home_list.dart';
 import 'package:marquee/marquee.dart';
+import 'package:ntv_mock/widget/live_button.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -74,42 +75,74 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        actions: <Widget>[
-          IconButton(
-              padding: EdgeInsets.only(right: 10),
-              icon: Icon(Icons.live_tv),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NtvLivePlayerPage()));
-              }),
-        ],
-        centerTitle: true,
-        title: Container(
-            height: 45,
-            child: Image(
-              image: AssetImage('assets/logo.png'),
-              fit: BoxFit.fitHeight,
-            )),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: TabBar(
-            labelStyle: TextStyle(color: Color(0xFF0e6b39), fontFamily: 'SolaimanLipi',),
-            isScrollable: true,
-            controller: _tabController,
-            tabs: [
-              Tab(text: "সকল"),
-              Tab(text: "খবর"),
-              Tab(text: "ফিচার"),
-              Tab(text: "ছবি"),
-              Tab(text: "ভিডিও"),
-              Tab(text: "নাটক"),
-              Tab(text: "সিনেমা"),
-            ],
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: Stack(
+          children: <Widget>[
+            AppBar(
+              elevation: 0,
+              actions: <Widget>[
+                InkWell(
+                    child: liveButton,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NtvLivePlayerPage()));
+                    }),
+                IconButton(
+                    padding: EdgeInsets.only(right: 10),
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    }),
+              ],
+              centerTitle: true,
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(30),
+                child: Material(
+                  color: Colors.white,
+                  child: Container(
+                    height: 30,
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 80,
+                        ),
+                        Flexible(
+                          child: TabBar(
+                            labelColor: Colors.black,
+                            labelStyle: TextStyle(fontFamily: 'SolaimanLipi', fontSize: 16), //Color(0xFF0e6b39)
+                            isScrollable: true,
+                            controller: _tabController,
+                            tabs: [
+                              Tab(text: "সকল"),
+                              Tab(text: "খবর"),
+                              Tab(text: "ফিচার"),
+                              Tab(text: "ছবি"),
+                              Tab(text: "ভিডিও"),
+                              Tab(text: "নাটক"),
+                              Tab(text: "সিনেমা"),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 45,
+              left: 15,
+              child: Container(
+                  height: 55,
+                  child: Image(
+                    image: AssetImage('assets/logo.png'),
+                    fit: BoxFit.fitHeight,
+                  )),
+            ),
+          ],
         ),
       ),
       body: TabBarView(controller: _tabController, children: [

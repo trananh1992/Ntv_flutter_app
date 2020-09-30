@@ -26,7 +26,6 @@ class _LandingPageState extends State<LandingPage> {
   List<Widget> _buildScreens() {
     return [
       HomePage(),
-//      SearchPage(),
       BookmarkPage(),
       SettingsPage(),
     ];
@@ -41,13 +40,6 @@ class _LandingPageState extends State<LandingPage> {
         inactiveColor: Colors.grey,
         isTranslucent: false,
       ),
-//      PersistentBottomNavBarItem(
-//        icon: Icon(Icons.search),
-//        title: ("সার্চ করুন"),
-//        activeColor: Colors.blue,
-//        inactiveColor: Colors.grey,
-//        isTranslucent: false,
-//      ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.bookmark_border),
         title: ("বুকমার্ক"),
@@ -84,7 +76,7 @@ class _LandingPageState extends State<LandingPage> {
           items: _navBarsItems(),
           onItemSelected: (index) {
             setState(() {
-              _controller.index = index; // THIS IS CRITICAL!! Don't miss it!
+              _controller.index = index;
             });
           },
           selectedIndex: _controller.index,
