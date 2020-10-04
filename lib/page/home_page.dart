@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ntv_mock/page/all_news_page.dart';
 import 'package:ntv_mock/page/live_tv_page.dart';
 import 'package:ntv_mock/page/news_page.dart';
+import 'package:ntv_mock/widget/category_drawer.dart';
 import 'package:ntv_mock/widget/home_list.dart';
 import 'package:marquee/marquee.dart';
 import 'package:ntv_mock/widget/live_button.dart';
@@ -90,12 +91,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           MaterialPageRoute(
                               builder: (context) => NtvLivePlayerPage()));
                     }),
-                IconButton(
-                    padding: EdgeInsets.only(right: 10),
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    }),
+                Builder(
+                  builder: (context) => IconButton(
+                      padding: EdgeInsets.only(right: 10),
+                      icon: Icon(Icons.menu),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      }),
+                ),
               ],
               centerTitle: true,
               bottom: PreferredSize(
@@ -210,26 +213,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: CatDrawer(),
       ),
     );
-  }
-}
-
-class CatDrawer extends StatelessWidget {
-  static var _cat =
-      "বাংলাদেশ বিশ্ব খেলাধুলা বিনোদন অর্থনীতি শিক্ষা মত-দ্বিমত শিল্প-ও-সাহিত্য জীবনধারা স্বাস্থ্য বিজ্ঞান-ও-প্রযুক্তি ভ্রমণ ধর্ম-ও-জীবন সহজ ইংরেজি প্রিয় প্রবাসী আইন-কানুন চাকরি-চাই অটোমোবাইল শিশু-কিশোর হাস্যরস নির্বাচন";
-
-  List<String> _cats = _cat.split(" ");
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: _cats.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Icon(Icons.blur_circular),
-            onTap: () {},
-            title: Text(_cats[index]),
-          );
-        });
   }
 }
 
