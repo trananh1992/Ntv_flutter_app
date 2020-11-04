@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ntv_mock/bloc/news_category_bloc.dart';
 import 'package:ntv_mock/bloc/news_category_event.dart';
 import 'package:ntv_mock/bloc/news_category_state.dart';
+import 'package:ntv_mock/page/news_by_category_page.dart';
 
 class CatDrawer extends StatelessWidget {
 
@@ -41,7 +42,9 @@ class CatDrawer extends StatelessWidget {
             _categoriesListTiles.add(
                 ListTile(
                   leading: Icon(Icons.blur_circular),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewsPageByCategory(childCategories: category.children, parentCategory: category,)));
+                  },
                   title: Text(category.name),
                 )
             );

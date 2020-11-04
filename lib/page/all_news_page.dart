@@ -11,6 +11,10 @@ import 'news_details.dart';
 
 class AllNewsPage extends StatefulWidget {
 
+  String termId;
+
+  AllNewsPage({@required this.termId});
+
   @override
   _AllNewsPageState createState() => _AllNewsPageState();
 }
@@ -28,15 +32,17 @@ class _AllNewsPageState extends State<AllNewsPage> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
-      _bloc.add(FetchNewsSingleCategoryEvent(termId: '2743', newsCount: _initialNewsCount, offset: _offset));
+      _bloc.add(FetchNewsSingleCategoryEvent(termId: widget.termId, newsCount: _initialNewsCount, offset: _offset));
     }
   }
 
   @override
   void initState() {
     super.initState();
+    print('init tab');
     _bloc = BlocProvider.of<NewsByCategoryBloc>(context);
-    _bloc.add(FetchNewsSingleCategoryEvent(termId: '2743', newsCount: _requestNewsCount, offset: _offset));
+    _bloc.add(ResetNewsByCategoryEvent());
+    _bloc.add(FetchNewsSingleCategoryEvent(termId: widget.termId, newsCount: _requestNewsCount, offset: _offset));
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }
@@ -49,6 +55,7 @@ class _AllNewsPageState extends State<AllNewsPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<NewsByCategoryBloc, NewsByCategoryState>(
       builder: (context, state) {
         if (state is NewsSingleCategoryLoaded) {

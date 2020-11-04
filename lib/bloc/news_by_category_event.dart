@@ -25,3 +25,8 @@ class FetchNewsSingleCategoryEvent extends NewsByCategoryEvent {
   @override
   List<Object> get props => [];
 }
+
+class ResetNewsByCategoryEvent extends NewsByCategoryEvent {
+  @override
+  List<Object> get props => [];
+}
