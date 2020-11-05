@@ -34,12 +34,9 @@ class NewsByCategoryBloc
   Stream<NewsByCategoryState> mapEventToState(
       NewsByCategoryEvent event) async* {
 
-    if (event is ResetNewsByCategoryEvent) {
-      yield NewsByCategoryInitial();
-    }
-
     if (event is FetchNewsByCategoryEvent) {
       yield NewsByCategoryLoading();
+      print('Loading');
       try {
         List<NewsByCategory> newsByCategories = await newsRepository
             .fetchNewsByCategory(event.termId, event.newsCount);
@@ -54,6 +51,10 @@ class NewsByCategoryBloc
 
         if (state is NewsSingleCategoryLoaded) {
 
+          if (event.reset) {
+            (state as NewsSingleCategoryLoaded).newsSingleCategory.items = [];
+          }
+
           NewsByCategory newsSingleCategoryOffset =
               await newsRepository.fetchNewsSingleCategory(
                   event.termId, event.newsCount, event.offset);
@@ -63,8 +64,10 @@ class NewsByCategoryBloc
                   newsSingleCategoryOffset.items;
 
           newsSingleCategoryOffset.items = mergedItems;
+
           yield NewsSingleCategoryLoaded(
               newsSingleCategory: newsSingleCategoryOffset);
+
           return;
         }
 

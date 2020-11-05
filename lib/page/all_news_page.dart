@@ -32,7 +32,7 @@ class _AllNewsPageState extends State<AllNewsPage> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold) {
-      _bloc.add(FetchNewsSingleCategoryEvent(termId: widget.termId, newsCount: _initialNewsCount, offset: _offset));
+      _bloc.add(FetchNewsSingleCategoryEvent(termId: widget.termId, newsCount: _initialNewsCount, offset: _offset, reset: false));
     }
   }
 
@@ -41,8 +41,7 @@ class _AllNewsPageState extends State<AllNewsPage> {
     super.initState();
     print('init tab');
     _bloc = BlocProvider.of<NewsByCategoryBloc>(context);
-    _bloc.add(ResetNewsByCategoryEvent());
-    _bloc.add(FetchNewsSingleCategoryEvent(termId: widget.termId, newsCount: _requestNewsCount, offset: _offset));
+    _bloc.add(FetchNewsSingleCategoryEvent(termId: widget.termId, newsCount: _requestNewsCount, offset: _offset, reset: true));
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }

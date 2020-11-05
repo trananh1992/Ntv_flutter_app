@@ -34,14 +34,7 @@ class _NewsPageByCategoryState extends State<NewsPageByCategory>
   void initState() {
     // TODO: implement initState
     super.initState();
-//    _bloc = BlocProvider.of(context);
     _tabController = TabController(length: widget.childCategories.length + 1, vsync: this);
-//    _tabController.addListener(() {
-//      if (_tabController.indexIsChanging) {
-//        _bloc.add(ResetNewsByCategoryEvent());
-//        print("tab changed");
-//      }
-//    });
   }
 
   List<Tab> _tabBarBuilder(List<Children> childCategories, NewsCategory parentCategory) {
@@ -147,7 +140,6 @@ class ParentCategoryPage extends StatelessWidget {
     });
 
     _bloc = BlocProvider.of(context);
-    _bloc.add(ResetNewsByCategoryEvent());
     _bloc.add(FetchNewsByCategoryEvent(termId: _categories, newsCount: 5));
 
     return ListView.builder(
